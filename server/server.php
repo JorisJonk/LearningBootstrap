@@ -4,6 +4,8 @@ require('vendor/autoload.php');
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 use Ratchet\Server\IoServer;
+use Ratchet\Http\HttpServer;
+use Ratchet\WebSocket\WsServer;
 
 class Chat implements MessageComponentInterface {
   protected $clients;
@@ -53,7 +55,11 @@ class Chat implements MessageComponentInterface {
 }
 
 $server = IoServer::factory(
-  new Chat(),
+  new HttpServer(
+    new WsServer(
+      new Chat()
+    )
+  ),
   8080
 );
 $server->run();
