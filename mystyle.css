@@ -1,0 +1,51 @@
+
+
+.containerx1 {
+  position: relative;
+  margin-top: -3%;
+  margin-left: 50%;
+
+}
+
+.containerx0 {
+  position fixed;
+  margin-top: 10%;
+  margin-left: -20%;
+
+  }
+
+.boxed {
+  border-style: solid;
+  border-width: thin;
+  border-color: grey;
+  width: 400px;
+  height: 550px;
+  box-shadow: 5px 10px 20px -6px black;
+
+  position: relative;
+  margin-top: 1%;
+  margin-left: 40%;
+  }
+
+.roundbutton1{
+border-radius: 50%;
+box-shadow: 5px 10px 20px -6px black;
+width: 30px;
+
+position: relative;
+margin-top: 125%;
+margin-left: 20%
+  }
+
+.roundbutton2{
+border-radius: 50%;
+box-shadow: 5px 10px 20px -6px black;
+width: 30px;
+
+margin-top: -110%;
+margin-left: 700%
+}
+
+.box {
+  border-radius: 20%;
+}
