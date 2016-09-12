@@ -2,22 +2,38 @@
 <HEAD>
 <TITLE>Test Input </TITLE>
 <div id="a2"></div>
+<div id="a3"></div>
+<div id="a4"></div>
+<div id="a5"></div>
 <SCRIPT LANGUAGE="JavaScript">
-function readText (form) {
-    TestVar =form.inputbox.value;
-    alert ("You typed: " + TestVar);
-      document.getElementById("a2").innerHTML = TestVar;
+var newarray = ['hai', 'hoi'];
+
+  function addchattoarray(chat) {
+    newarray.push(chat);
+    console.log("gepusht");
+  }
+  function showarray(array){
+    document.getElementById("a3").innerHTML = array.toString() ;
+  }
+
+function showword(word) {
+  document.getElementById("a4").innerHTML = word ;
+
 }
 
+function showwordinarray(index){
+  document.getElementById("a5").innerHTML = ChatStringArray[index];
+}
 
 </SCRIPT>
 </HEAD>
 <BODY>
-<FORM NAME="myform" ACTION="" METHOD="GET">
-Enter something in the box: <BR>
-<INPUT TYPE="text" NAME="inputbox" VALUE=""><P>
-<INPUT TYPE="button" NAME="button1" Value="Read" onClick="readText(this.form)">
+  <p>hierkomtie</p>
+  <script>
 
-</FORM>
+addchattoarray('hoi');
+showarray(newarray);
+  </script>
+  <div id="id1"></div>
 </BODY>
 </HTML>

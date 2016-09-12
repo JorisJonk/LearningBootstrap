@@ -18,20 +18,20 @@
     <![endif]-->
     <link href="mystyle.css" rel="stylesheet" type="text/css">
     <SCRIPT LANGUAGE="JavaScript">
-    function readText (form) {
-        TestVar =form.inputbox.value;
-          document.getElementById("cm1").innerHTML = TestVar;
+    var newarray = ['click the buttons below to ask or reply'];
+    console.log("array created");
+
+    function addchattoarray (messagesent) {
+          newarray.push(messagesent);
+          console.log("message added to array");
     };
     function myFunction(form) {
       messagesent = form.inputbox.value;
       conn.send(messagesent);
+      addchattoarray(messagesent);
+      showsix();
 
     };
-    function createNewArray(){
-        var ChatStringArray = ["first message"];
-        document.getElementById("cm3").innerHTML = ChatStringArray[0]
-
-      };
 
           </script>
   </head>
@@ -57,16 +57,16 @@
       </div>
       <div id="cm4">
       </div>
-      <div>
+      <div id="cm5">
       </div>
-      <div>
+      <div id="cm6">
       </div>
       <div id="t1" class="inputballoon1">
-    <form id="inputform"> <input type="text" name="inputbox" placeholder="Enter question..." VALUE=""/>
-      <button onclick="readText(this.form); myFunction(inputform);">ok</button>
+    <form id="inputform" onsubmit="return byObserver()"> <input type="text" name="inputbox" placeholder="Enter question..." VALUE=""/>
+      <button onclick="myFunction(inputform);">ok</button>
       </div>
       <div id="t2" class="inputballoon1">
-    <form> <input type="text" name="inputtext" placeholder="Enter answer..."/>
+    <form> <input type="text" name="inputtext" placeholder="Enter answer..." VALUE=""/>
       <button onclick="myFunction()">ok</button>
       </div>
       <div id="a2" class="textballoon1"></div>
@@ -88,16 +88,14 @@
 
 conn.onopen = function(e) {
     console.log("Connection established!");
-    createNewArray();
-    console.log("array created");
+    document.getElementById("cm1").innerHTML = newarray[0];
 };
 
 conn.onmessage = function(e) {
     message = e.data;
     console.log(e.data);
-    document.getElementById("cm1").innerHTML = message;
     addchattoarray(message);
-    document.getElementById("cm4").innerHTML = ChatStringArray.toString();
+    showsix();
 
 };
 
@@ -105,12 +103,33 @@ conn.onmessage = function(e) {
       var TestVar = "asdasd";
 document.getElementById("cm1").innerHTML = TestVar;
 
-
 };
 
-function addchattoarray(chat) {
-  ChatStringArray.push(chat);
-}
+function showsix() {
+  document.getElementById("cm1").innerHTML = newarray[0];
+  document.getElementById("cm2").innerHTML = newarray[1];
+  document.getElementById("cm3").innerHTML = newarray[2];
+  document.getElementById("cm4").innerHTML = newarray[3];
+  document.getElementById("cm5").innerHTML = newarray[4];
+  document.getElementById("cm6").innerHTML = newarray[5];
+};
+
+function showlastsix() {
+
+
+  document.getElementById("cm1").innerHTML = newarray[0];
+  document.getElementById("cm2").innerHTML = newarray[1];
+  document.getElementById("cm3").innerHTML = newarray[2];
+  document.getElementById("cm4").innerHTML = newarray[3];
+  document.getElementById("cm5").innerHTML = newarray[4];
+  document.getElementById("cm6").innerHTML = newarray[5];
+
+};
+function showarray(array){
+  document.getElementById("a3").innerHTML = array.toString() ;
+};
+
+
 
 
 function showtextbox(){
@@ -123,6 +142,11 @@ function showtextbox2(){
   var showtextballoon2 = document.getElementById("t2");
   showtextballoon2.style.visibility = "visible";
 };
+
+function byObserver() {
+  return false;
+};
+
 </script>
 
 
