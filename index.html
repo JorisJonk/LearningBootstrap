@@ -97,6 +97,7 @@ conn.onmessage = function(e) {
     console.log(e.data);
     document.getElementById("cm1").innerHTML = message;
     addchattoarray(message);
+    document.getElementById("cm4").innerHTML = ChatStringArray.toString();
 
 };
 
