@@ -49,3 +49,16 @@ margin-left: 700%
 .box {
   border-radius: 20%;
 }
+
+.textballoon1 {
+  position: relative;
+  margin-left: 10%;
+  margin-top: 10%;
+}
+
+.inputballoon1 {
+  visibility: hidden;
+  position: relative;
+  margin-left: 10%;
+  margin-top: 10%;
+}

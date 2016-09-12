@@ -17,32 +17,114 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link href="mystyle.css" rel="stylesheet" type="text/css">
+    <SCRIPT LANGUAGE="JavaScript">
+    function readText (form) {
+        TestVar =form.inputbox.value;
+          document.getElementById("cm1").innerHTML = TestVar;
+    };
+    function myFunction(form) {
+      messagesent = form.inputbox.value;
+      conn.send(messagesent);
+
+    };
+    function createNewArray(){
+        var ChatStringArray = ["first message"];
+        document.getElementById("cm3").innerHTML = ChatStringArray[0]
+
+      };
+
+          </script>
   </head>
   <body><html>
-
-
-    <div class="container">
+      <div class="container">
   <div class="containerx0">
     <img src="basicimages/forumappuser_bar.png" alt="ForumApp";>
 
 
         <div class="box">
     <div class="containerx1">
-
-        <input type="text" id="namesession" placeholder="Enter session..." />
+<form>
+ <input type="text" id="namesession" placeholder="Enter session..." />
+<button>ok</button>
+</form>
     </div>
     <div class="boxed">
+      <div id="cm1">
+      </div>
+      <div id="cm2">
+      </div>
+      <div id="cm3">
+      </div>
+      <div id="cm4">
+      </div>
+      <div>
+      </div>
+      <div>
+      </div>
+      <div id="t1" class="inputballoon1">
+    <form id="inputform"> <input type="text" name="inputbox" placeholder="Enter question..." VALUE=""/>
+      <button onclick="readText(this.form); myFunction(inputform);">ok</button>
+      </div>
+      <div id="t2" class="inputballoon1">
+    <form> <input type="text" name="inputtext" placeholder="Enter answer..."/>
+      <button onclick="myFunction()">ok</button>
+      </div>
+      <div id="a2" class="textballoon1"></div>
       <div class="roundbutton1">
-        <img src="basicimages/forumappuser_qm.png"
+        <img src="basicimages/forumappuser_qm.png" onclick="showtextbox()"
     </div>
     <div class="roundbutton2">
-      <img src="basicimages/forumappuser_!.png"
+      <img src="basicimages/forumappuser_!.png" onclick="showtextbox2()"
       </div>
-    <h1></h1>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    </div>
+
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script>
+    var conn = new WebSocket('ws://localhost:8080');
+
+conn.onopen = function(e) {
+    console.log("Connection established!");
+    createNewArray();
+    console.log("array created");
+};
+
+conn.onmessage = function(e) {
+    message = e.data;
+    console.log(e.data);
+    document.getElementById("cm1").innerHTML = message;
+    addchattoarray(message);
+
+};
+
+  function showownmessage (form) {
+      var TestVar = "asdasd";
+document.getElementById("cm1").innerHTML = TestVar;
+
+
+};
+
+function addchattoarray(chat) {
+  ChatStringArray.push(chat);
+}
+
+
+function showtextbox(){
+  var showtextballoon = document.getElementById("t1");
+  showtextballoon.style.visibility = "visible";
+
+};
+
+function showtextbox2(){
+  var showtextballoon2 = document.getElementById("t2");
+  showtextballoon2.style.visibility = "visible";
+};
+</script>
+
+
+
   </body>
 </html>
