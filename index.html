@@ -49,19 +49,19 @@
 </form>
     </div>
     <div class="boxed">
-      <div>
-      <div id="cm1" class="showchat">
-      </div>
-      <div id="cm2" class="showchat">
-      </div>
-      <div id="cm3" class="showchat">
-      </div>
-      <div id="cm4" class="showchat">
-      </div>
-      <div id="cm5" class="showchat">
-      </div>
-      <div id="cm6" class="showchat">
-      </div>
+      <div id="chatlog" class="sizedright">
+      <p id="cm1" class="showchat">
+      </p>
+      <p id="cm2" class="showchat">
+      </p>
+      <p id="cm3" class="showchat">
+      </p>
+      <p id="cm4" class="showchat">
+      </p>
+      <p id="cm5" class="showchat">
+      </p>
+      <p id="cm6" class="showchat">
+      </p>
     </div>
     <div class="incbox">
     <div id="t1" class="inputballoon1">
@@ -106,6 +106,13 @@ conn.onmessage = function(e) {
     console.log(e.data);
     addchattoarray(message);
     showlastsix();
+
+var para = document.createElement("p");
+var node = document.createTextNode(message);
+para.appendChild(node);
+
+var element = document.getElementById("chatlog");
+element.appendChild(para);
 
 };
 
