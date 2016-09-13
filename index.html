@@ -18,7 +18,7 @@
     <![endif]-->
     <link href="mystyle.css" rel="stylesheet" type="text/css">
     <SCRIPT LANGUAGE="JavaScript">
-    var newarray = ['click the buttons below to ask or reply'];
+    var newarray = ['click the buttons below to ask or reply','','','','',''];
     console.log("array created");
 
     function addchattoarray (messagesent) {
@@ -29,7 +29,7 @@
       messagesent = form.inputbox.value;
       conn.send(messagesent);
       addchattoarray(messagesent);
-      showsix();
+      showlastsix();
 
     };
 
@@ -49,35 +49,45 @@
 </form>
     </div>
     <div class="boxed">
-      <div id="cm1">
+      <div>
+      <div id="cm1" class="showchat">
       </div>
-      <div id="cm2">
+      <div id="cm2" class="showchat">
       </div>
-      <div id="cm3">
+      <div id="cm3" class="showchat">
       </div>
-      <div id="cm4">
+      <div id="cm4" class="showchat">
       </div>
-      <div id="cm5">
+      <div id="cm5" class="showchat">
       </div>
-      <div id="cm6">
+      <div id="cm6" class="showchat">
       </div>
-      <div id="t1" class="inputballoon1">
+    </div>
+    <div class="incbox">
+    <div id="t1" class="inputballoon1">
     <form id="inputform" onsubmit="return byObserver()"> <input type="text" name="inputbox" placeholder="Enter question..." VALUE=""/>
       <button onclick="myFunction(inputform);">ok</button>
       </div>
-      <div id="t2" class="inputballoon1">
-    <form> <input type="text" name="inputtext" placeholder="Enter answer..." VALUE=""/>
-      <button onclick="myFunction()">ok</button>
-      </div>
-      <div id="a2" class="textballoon1"></div>
-      <div class="roundbutton1">
-        <img src="basicimages/forumappuser_qm.png" onclick="showtextbox()"
-    </div>
-    <div class="roundbutton2">
-      <img src="basicimages/forumappuser_!.png" onclick="showtextbox2()"
-      </div>
 
+    <div id="t2" class="inputballoon1">
+  <form> <input type="text" name="inputtext" placeholder="Enter answer..." VALUE=""/>
+    <button onclick="myFunction()">ok</button>
     </div>
+
+    <div id="a2" class="textballoon1"></div>
+
+
+    <div class="roundbutton1">
+      <img src="basicimages/forumappuser_qm.png" onclick="showtextbox()">
+  </div>
+  <div class="roundbutton2">
+    <img src="basicimages/forumappuser_!.png" onclick="showtextbox2()">
+    </div>
+  </div>
+</div>
+</div>
+
+
 
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -95,7 +105,7 @@ conn.onmessage = function(e) {
     message = e.data;
     console.log(e.data);
     addchattoarray(message);
-    showsix();
+    showlastsix();
 
 };
 
@@ -115,14 +125,14 @@ function showsix() {
 };
 
 function showlastsix() {
+countvar = newarray.length;
 
-
-  document.getElementById("cm1").innerHTML = newarray[0];
-  document.getElementById("cm2").innerHTML = newarray[1];
-  document.getElementById("cm3").innerHTML = newarray[2];
-  document.getElementById("cm4").innerHTML = newarray[3];
-  document.getElementById("cm5").innerHTML = newarray[4];
-  document.getElementById("cm6").innerHTML = newarray[5];
+  document.getElementById("cm1").innerHTML = newarray[countvar - 6];
+  document.getElementById("cm2").innerHTML = newarray[countvar - 5];
+  document.getElementById("cm3").innerHTML = newarray[countvar - 4];
+  document.getElementById("cm4").innerHTML = newarray[countvar - 3];
+  document.getElementById("cm5").innerHTML = newarray[countvar - 2];
+  document.getElementById("cm6").innerHTML = newarray[countvar - 1];
 
 };
 function showarray(array){
