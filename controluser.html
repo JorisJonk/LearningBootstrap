@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,32 +18,320 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link href="mystyle.css" rel="stylesheet" type="text/css">
-  </head>
-  <body><html>
+    <SCRIPT LANGUAGE="JavaScript">
+        var newarray = ['', '', '', '', '', ''];
+        var asoarray = [];
 
+        console.log("array created");
+        var questioncounter = 0;
+        console.log("questioncounter reset to 0");
+
+
+        function addchattoarray(messagesent) {
+            var message = messagesent;
+            var temparray = message.explode(' ', 3);
+            console.log(temparray[0] + " eerste lid van de array");
+            if (temparray[0] == 'showquestionposted') {
+                console.log('showquestionposted gelezen');
+                questioncounter = asoarray.length - 1;
+                console.log(questioncounter);
+                showpostedthread();
+            }
+            if (temparray[0] == 'question') {
+                addquestiontoarray(temparray[1]);
+                showfirstquestion();
+
+                console.log("question added to array");
+            }
+            if (temparray[0] == 'reply') {
+                var temparray2 = message.explode(' ', 3);
+                addreplytoarray(temparray[1], temparray[2]);
+                if (temparray[1] == questioncounter) {
+                    showreplyinthread(temparray[2]);
+                }
+
+            } else return null;
+
+
+
+
+
+        };
+
+        function addquestiontoarray(questiontext) {
+
+            var configarray = [];
+            var replyarray = [];
+            configarray[0] = questiontext;
+            configarray[1] = replyarray;
+            asoarray.push(configarray);
+
+
+            console.log(asoarray[0][0] + " deze jetser");
+
+        };
+
+        function addreplytoarray(id, text) {
+            var ide = id;
+            var tekst = text;
+            asoarray[ide][1].push(tekst);
+            console.log(asoarray[id][1] + 'reply added to array');
+
+        }
+
+        function myFunction(form, currentquestion) {
+            idcount = currentquestion;
+            messageshown = form.inputbox.value;
+            messagesent = "reply " + idcount + " " + messageshown;
+            conn.send(messagesent);
+
+
+
+        };
+
+        function myFunction2(form) {
+            messageshown = form.inputtext.value;
+            messagesent = "question " + messageshown;
+            conn.send(messagesent);
+
+
+
+        };
+
+        function byObserver() {
+            return false;
+        };
+
+        function showlastsix() {
+
+        };
+
+        function erasetextbox() {
+            var showtextballoon = document.getElementById("t2");
+            showtextballoon.style.visibility = "hidden";
+
+        };
+
+        function disablebutton() {
+            document.getElementById("b1").disabled = true;
+            console.log("disabledbuttonb1");
+        };
+
+        String.prototype.explode = function(separator, limit) {
+            var arr = this.split(separator);
+            if (limit) arr.push(arr.splice(limit - 1).join(separator));
+            return arr;
+        };
+    </script>
+</head>
+
+<body>
 
     <div class="container">
-  <div class="containerx0">
-    <img src="basicimages/forumappuser_bar.png" alt="ForumApp";>
+        <div class="containerx0">
+            <img src="basicimages/forumappuser_bar.png" alt="ForumApp" ;></img>
+
+            <div class="box">
+                <div class="containerx1">
+                    <form>
+                        <input type="text" id="namesession" placeholder="name/create session..."></input>
+                        <button>ok</button>
+                    </form>
+                </div>
+
+                <div class="boxed">
+                    <div id="questionbox" class="questionbox">
+                    </div>
+                    <div id="chatlog" class="sizedright">
+
+                    </div>
+
+                    <div class="incbox">
+
+                        <div id="t1" class="inputballoon1">
+                            <form id="inputform" onsubmit="return byObserver();"> <input type="text" name="inputbox" placeholder="Enter reply..." VALUE=""></input>
+                                <button onclick="myFunction(inputform,questioncounter);">ok</button>
+                            </form>
+                        </div>
+
+                        <div id="t2" class="inputballoon1">
+                            <form id="inputform2" onsubmit="return byObserver();">
+                                <input type="text" name="inputtext" placeholder="Enter question..." VALUE=""></input>
+                                <button onclick="myFunction2(inputform2); erasetextbox();">ok</button>
+
+                            </form>
+                        </div>
 
 
-        <div class="box">
-    <div class="containerx1">
 
-        <input type="text" id="namesession" placeholder="Create session..." />
+
+                        <div id="a2" class="textballoon1"></div>
+
+
+                        <div id="b1" class="roundbutton1">
+                            <img src="basicimages/forumappuser_+.png" onclick="showtextbox2()">
+                        </div>
+                        <div class="roundbutton2">
+                            <img src="basicimages/forumappuser_=.png" onclick="showtextbox()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="arrowright">
+            <span class="glyphicon glyphicon-chevron-right" onclick="shownextthread();"></span>
+        </div>
+        <div class="arrowleft">
+            <span class="glyphicon glyphicon-chevron-left" onclick="showpreviousthread();"></span>
+        </div>
     </div>
-    <div class="boxed">
-      <div class="roundbutton1">
-        <img src="basicimages/forumappuser_+.png"
-    </div>
-    <div class="roundbutton2">
-      <img src="basicimages/forumappuser_=.png"
-      </div>
-    <h1></h1>
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-  </body>
+    <script>
+        var conn = new WebSocket('ws://localhost:8080');
+
+        conn.onopen = function(e) {
+            console.log("Connection established!");
+
+
+        };
+
+        conn.onmessage = function(e) {
+            message = e.data;
+            console.log(e.data + ' dit is wat er is ontvangen van de server');
+            addchattoarray(message);
+
+
+        };
+
+        function showfirstquestion() {
+            if (questioncounter == 0) {
+                if (asoarray[questioncounter][0] != undefined) {
+                    document.getElementById("questionbox").innerHTML = asoarray[questioncounter][0];
+                }
+            }
+        };
+
+
+        function showownmessage(form) {
+            var TestVar = "asdasd";
+            document.getElementById("cm1").innerHTML = TestVar;
+
+        };
+
+        function showsix() {
+            document.getElementById("cm1").innerHTML = newarray[0];
+            document.getElementById("cm2").innerHTML = newarray[1];
+            document.getElementById("cm3").innerHTML = newarray[2];
+            document.getElementById("cm4").innerHTML = newarray[3];
+            document.getElementById("cm5").innerHTML = newarray[4];
+            document.getElementById("cm6").innerHTML = newarray[5];
+        };
+
+
+
+
+
+        function showtextbox() {
+            var showtextballoon = document.getElementById("t1");
+            showtextballoon.style.visibility = "visible";
+
+        };
+
+        function showtextbox2() {
+            var showtextballoon2 = document.getElementById("t2");
+            showtextballoon2.style.visibility = "visible";
+        };
+
+
+        function shownextthread() {
+            if (questioncounter < asoarray.length - 1) {
+                questioncounter++;
+                console.log(questioncounter);
+            }
+            showpostedthread();
+
+            tochatlist(asoarray[questioncounter][1]);
+            //van reply[](questioncounter) --> weergave
+        };
+
+        function showpreviousthread() {
+            if (questioncounter != 0) {
+                questioncounter = questioncounter - 1;
+                console.log(questioncounter);
+            }
+            showpostedthread();
+
+            tochatlist(asoarray[questioncounter][1]);
+
+            //van reply[](questioncounter) --> weergave
+
+
+        };
+
+        function showpostedthread() {
+            if (asoarray[questioncounter][0] != undefined) {
+                document.getElementById("questionbox").innerHTML = asoarray[questioncounter][0];
+                removeoldnodes();
+            }
+
+        };
+
+        function showreplyinthread(replytext) {
+            var para = document.createElement("p");
+            para.className = 'showchat';
+            para.id = "n1";
+            var node = document.createTextNode(replytext);
+            para.appendChild(node);
+
+            var element = document.getElementById("chatlog");
+            element.appendChild(para);
+            chatlog.scrollTop = chatlog.scrollHeight;
+        }
+
+        function tochatlist(array) {
+            var dummyarray = array;
+
+            if (dummyarray[q] !== null) {
+                var q = 0;
+                while (q < array.length) {
+                    var para = document.createElement("p");
+                    para.className = 'showchat';
+                    para.id = "n1";
+                    var dummytext = dummyarray[q];
+                    var node = document.createTextNode(dummytext);
+                    para.appendChild(node);
+
+                    var element = document.getElementById("chatlog");
+                    element.appendChild(para);
+                    chatlog.scrollTop = chatlog.scrollHeight;
+                    q++;
+                }
+            }
+        };
+
+        function removeoldnodes() {
+            var checkp = document.getElementById("chatlog");
+            var checkc = document.getElementById("n1");
+
+
+            while (checkc !== null) {
+                var parent = document.getElementById("chatlog");
+                var child = document.getElementById("n1");
+
+                parent.removeChild(child);
+                checkc = document.getElementById("n1");
+            }
+        }
+    </script>
+
+
+
+</body>
+
 </html>

@@ -1,95 +1,115 @@
-
-
 .containerx1 {
-  position: relative;
-  margin-top: -3%;
-  margin-left: 50%;
-
+    position: relative;
+    margin-top: -3%;
+    margin-left: 50%;
 }
 
 .containerx0 {
-  position fixed;
-  margin-top: 10%;
-  margin-left: -20%;
-
-  }
+    position fixed;
+    margin-top: 10%;
+    margin-left: -20%;
+}
 
 .boxed {
-  border-style: solid;
-  border-width: thin;
-  border-color: grey;
-  width: 400px;
-  height: 550px;
-  box-shadow: 5px 10px 20px -6px black;
+    border-style: solid;
+    border-width: thin;
+    border-color: grey;
+    width: 400px;
+    height: 550px;
+    box-shadow: 5px 10px 20px -6px black;
+    position: relative;
+    margin-top: 1%;
+    margin-left: 40%;
+}
 
-  position: relative;
-  margin-top: 1%;
-  margin-left: 40%;
-  }
+.roundbutton1 {
+    border-radius: 50%;
+    box-shadow: 5px 10px 20px -6px black;
+    width: 30px;
+    position: static;
+    margin-top: -25%;
+    margin-left: 35%
+}
 
-.roundbutton1{
-border-radius: 50%;
-box-shadow: 5px 10px 20px -6px black;
-width: 30px;
-
-position: static;
-margin-top: -5%;
-margin-left: 35%
-  }
-
-.roundbutton2{
-  border-radius: 50%;
-  box-shadow: 5px 10px 20px -6px black;
-  width: 30px;
-
-  position: static;
-  margin-top: -16%;
-  margin-left: 125%
-    }
+.roundbutton2 {
+    border-radius: 50%;
+    box-shadow: 5px 10px 20px -6px black;
+    width: 30px;
+    position: static;
+    margin-top: -16%;
+    margin-left: 125%
+}
 
 .box {
-  border-radius: 20%;
+    border-radius: 20%;
 }
 
 .textballoon1 {
-  position: relative;
-  margin-left: 0%;
-  margin-top: 7%;
+    position: relative;
+    margin-left: 0%;
+    margin-top: 7%;
 }
 
 .inputballoon1 {
-  visibility: hidden;
-  position: static;
-  margin-left: 30%;
-  margin-top: -3%;
+    visibility: hidden;
+    position: static;
+    margin-left: 30%;
+    margin-top: -3%;
+    width: auto;
 }
 
 .inputballoon2 {
-  visibility: hidden;
-  position: static;
-  margin-left: 30%;
-  margin-top: -3%;
+    visibility: hidden;
+    position: static;
+    margin-left: 30%;
+    margin-top: -3%;
+    width: auto;
+    
 }
 
 .showchat {
-  position: relative;
-  margin-top: 10%;
-  margin-left: 10%;
-  margin-right: 10%;
-  border-bottom-style: none;
-  border-bottom: visible;
-  border-bottom-color: #C0C0C0;
-  border-bottom-width: thin;
-
-  word-break: break-all;
+    position: relative;
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-bottom-style: none;
+    border-bottom: visible;
+    border-bottom-color: #C0C0C0;
+    border-bottom-width: thin;
+    word-break: break-all;
 }
 
 .incbox {
-  position: absolute;
+    position: absolute;
 }
 
 .sizedright {
+    width: px;
+    height: 350px;
+    overflow-y: scroll;
+}
+
+.arrowright {
+  margin-left: 65%;
+  margin-top: -32%;
+  color: blue;
+  font-size: 30px;
+
+}
+
+.arrowleft {
+  margin-left: 24%;
+  margin-top: -3.7%;
+  color: #3E5584;
+  font-size: 30px;
+}
+
+.questionbox {
+  position: relative;
+  height: 50px;
   width: px;
-  height: 400px;
-  overflow-y: scroll;
+  margin-left: 10%;
+  margin-top: 10%;
+
+
 }

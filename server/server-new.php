@@ -9,7 +9,7 @@ use Ratchet\WebSocket\WsServer;
 
 class Chat implements MessageComponentInterface {
   protected $clients;
-  protected $idCounter; 
+  protected $idCounter;
 
   public function __construct() {
     $this->clients = new \SplObjectStorage;
@@ -20,6 +20,7 @@ class Chat implements MessageComponentInterface {
   public function onOpen(ConnectionInterface $conn) {
     // Store the new connection to send messages to later
     $this->clients->attach($conn);
+    //todo: send client questioncount
 
     // todo: broadcast that client is connected
 
@@ -35,10 +36,12 @@ class Chat implements MessageComponentInterface {
 
     // Type of messages from client:
     // question [the question]
+    //
     // reply [id] [the reply]
     //
     // Type of messages from server
     // question [id] [the question]
+    //
     // reply [id] [the reply]
 
 
@@ -49,9 +52,11 @@ class Chat implements MessageComponentInterface {
           $needle = "question ";
           $replace = "";
           $one = 1;
-          $question = str_replace($needle, $replace, $msg, $one); 
-          $serverMsg = "question " . $this->idCounter . " " . $question; 
+          $question = str_replace($needle, $replace, $msg, $one);
+          $serverMsg = "question " . $this->idCounter . " " . $question;
           $this->Broadcast($serverMsg);
+          // increment idCounter
+          $this->idCounter++;
         }
         else if ($x[0] == "reply") {
           $this->Broadcast($msg);
@@ -59,10 +64,11 @@ class Chat implements MessageComponentInterface {
         else {
           // todo: drop client
         }
-      } 
+      }
   }
 
   protected function Broadcast($msg) {
+    echo "Broadcasting msg: $msg\n";
     foreach ($this->clients as $client) {
       $client->send($msg);
     }
