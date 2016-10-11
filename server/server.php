@@ -7,25 +7,12 @@ use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 
-<?php
-$servername = "localhost";
-$username = "username";
-$password = "password";
-$dbname = "forumthread";
-
-try {
-    $dbconn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    // set the PDO error mode to exception
-    $dbconn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-catch(PDOException $e) {
-  echo "error caught";
-}
 
 
 class Chat implements MessageComponentInterface {
   protected $clients;
   protected $asoarrayphp;
+  protected $conn;
 
   public function __construct() {
     $this->clients = new \SplObjectStorage;
@@ -50,6 +37,7 @@ class Chat implements MessageComponentInterface {
         $conn->send("reply " . $i . " " . $this->asoarrayphp[$i]["replies"][$j]);
       }
     }
+    $this->Connectdatabase();
   }
 
   public function onMessage(ConnectionInterface $from, $msg) {
@@ -82,6 +70,7 @@ class Chat implements MessageComponentInterface {
           $configarray["sessionid"] = $x[1];
           $configarray["replies"] = array();
           array_push($this->asoarrayphp, $configarray);
+
         }
         if ($x[0] == "reply") {
           $x = explode(" ", $msg, 3);
@@ -91,6 +80,13 @@ class Chat implements MessageComponentInterface {
           if ($id <= sizeof($this->asoarrayphp) - 1) {
             array_push($this->asoarrayphp[$id]["replies"], $x[2]);
             $this->Broadcast($msg);
+            $sessionid = $x[0];
+            $questionid = $x[1];
+            $id = sizeof($this->asoarrayphp[$id]) - 1;
+            $reply =  $x[2];
+            $sql = "INSERT INTO `replies` (`session_id`, `question_id`, `id`, `reply`) VALUES ($sessionid, $questionid,$id, $reply)";
+            $this->Sendtodatabase($sql);
+            //$conn->exec($sql);
           }
         }
 
@@ -109,6 +105,25 @@ class Chat implements MessageComponentInterface {
     $from->send("showquestionposted");
   }
 
+public function Connectdatabase(){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "forumthreads";
+
+  try {$this->conn = new PDO("mysql:host=$servername;dbname=$dbname",$username, $password);
+  $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }
+  catch(PDOException $e)
+  {
+  echo "error occured";
+  }
+
+}
+
+public function Sendtodatabase($sqlstatement){
+  $this->conn->exec($sqlstatement);
+}
 
 
     //geef de verzender een extra bericht genaamd update
