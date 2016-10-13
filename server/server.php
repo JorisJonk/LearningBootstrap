@@ -18,6 +18,7 @@ class Chat implements MessageComponentInterface {
     $this->clients = new \SplObjectStorage;
     $this->idCounter = 0;
     $this->asoarrayphp = array();
+    $this->Connectdatabase();
     // todo: open mysql connection with pdo
   }
 
@@ -37,7 +38,7 @@ class Chat implements MessageComponentInterface {
         $conn->send("reply " . $i . " " . $this->asoarrayphp[$i]["replies"][$j]);
       }
     }
-    $this->Connectdatabase();
+
   }
 
   public function onMessage(ConnectionInterface $from, $msg) {
@@ -80,12 +81,10 @@ class Chat implements MessageComponentInterface {
           if ($id <= sizeof($this->asoarrayphp) - 1) {
             array_push($this->asoarrayphp[$id]["replies"], $x[2]);
             $this->Broadcast($msg);
-            $sessionid = $x[0];
-            $questionid = $x[1];
-            $id = sizeof($this->asoarrayphp[$id]) - 1;
-            $reply =  $x[2];
-            $sql = "INSERT INTO `replies` (`session_id`, `question_id`, `id`, `reply`) VALUES ($sessionid, $questionid,$id, $reply)";
-            $this->Sendtodatabase($sql);
+
+            $this->Sendtodatabase();
+
+
             //$conn->exec($sql);
           }
         }
@@ -121,8 +120,19 @@ public function Connectdatabase(){
 
 }
 
-public function Sendtodatabase($sqlstatement){
-  $this->conn->exec($sqlstatement);
+public function Sendtodatabase(){
+  $sessionid = "asdasd";
+  $questionid = "123";
+  $id = 1;
+  $reply =  "asdasdasd";
+$stmt = $this->conn->prepare("INSERT INTO `replies` (`session_id`, `question_id`, id, reply ) VALUES (:sessionid, :questionid, :id, :reply)");
+$stmt->bindParam(':sesionid', $sessionid);
+$stmt->bindParam(':questionid', $questionid);
+$stmt->bindParam(':id', $id);
+$stmt->bindParam(':reply', $reply);
+
+$stmt->execute();
+
 }
 
 
